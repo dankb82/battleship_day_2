@@ -1,3 +1,5 @@
+require './ship.rb'
+
 class Grid
   attr_reader :ships
 
@@ -15,8 +17,23 @@ class Grid
 
   def place_ship(ship, x, y, across)
     ship.place(x, y, across)
+    @ships.each do |s|
+      if ship.overlaps_with?(s)
+        return false
+      end
+    end
     @ships << ship
   end
+
+  # def cant_overlap(new_ship)
+  #   overlap = false
+  #   @ships.each do |p|
+  #     overlap = true if ship.place?(p.x, p.y)
+  #   end
+  #   overlap
+  # end
+
+
 
   def display
     puts "    1   2   3   4   5   6   7   8   9   10"

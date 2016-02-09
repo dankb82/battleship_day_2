@@ -1,4 +1,5 @@
 class Ship
+  attr_reader :positions
   def initialize(length)
     @length = length
     @positions = []
