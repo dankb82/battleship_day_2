@@ -1,7 +1,7 @@
-require './ship.rb'
+
 
 class Grid
-  attr_reader :ships
+
 
   def initialize
     @ships = []
@@ -46,5 +46,11 @@ class Grid
 
   private def display_line
     puts "  -----------------------------------------"
+  end
+
+  def fire_at(x, y)
+    if has_ship_on?(x, y)
+    else false
+    end
   end
 end

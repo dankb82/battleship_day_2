@@ -1,5 +1,5 @@
 class Ship
-  attr_reader :positions
+  attr_reader :fire_at
   def initialize(length)
     @length = length
     @positions = []
