@@ -1,5 +1,4 @@
 class Ship
-  attr_reader :fire_at
   def initialize(length)
     @length = length
     @positions = []
@@ -10,9 +9,14 @@ class Ship
   end
 
   def place(x, y, across)
-    return false if @positions != []
-    length.times do |i|
-      @positions << (across ? Position.new(x+i, y) : Position.new(x, y+i))
+    if @positions == []
+      length.times do |i|
+        if across
+          @positions << Position.new(x+i, y)
+        else
+          @positions << Position.new(x, y+i)
+        end
+      end
     end
   end
 
@@ -20,15 +24,11 @@ class Ship
     @positions.each do |p|
       return p if p.x == x && p.y == y
     end
-    false
+    return false
   end
 
   def overlaps_with?(other_ship)
-    found = false
-    @positions.each do |p|
-      found = true if other_ship.covers?(p.x, p.y)
-    end
-    found
+    @positions.any? {|p| other_ship.covers?(p.x, p.y)}
   end
 
   def fire_at(x, y)
@@ -42,11 +42,6 @@ class Ship
   end
 
   def sunk?
-    return false if @positions.empty?
-    all_hit = true
-    @positions.each do |p|
-      all_hit = false if !p.hit?
-    end
-    all_hit
+    !@positions.empty? && @positions.all? {|p| p.hit?}
   end
 end
