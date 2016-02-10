@@ -50,6 +50,7 @@ class Grid
 
   def fire_at(x, y)
     if has_ship_on?(x, y)
+      return true
     else false
     end
   end
